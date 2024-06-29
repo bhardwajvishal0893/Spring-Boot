@@ -9,8 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class IntroductionToSpringBootApplication implements CommandLineRunner {
 	@Autowired
 	Apple obj;
+
+	@Autowired
+	Apple obj1;
+
+	@Autowired
+	DBService dbService;
 	public static void main(String[] args) {
 		SpringApplication.run(IntroductionToSpringBootApplication.class, args);
+
 	}
 
 	//The run method is non static so it wont throw error when i try to use eat method of apple class by using obj reference
@@ -26,5 +33,10 @@ public class IntroductionToSpringBootApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		obj.eatApple();
+		obj1.eatApple(); // Default bean creation is singleton type so even if autowired and inject two times, only one memory will be created you
+		// can test this by using postConstruct annotation
+		//I used App Config file to add method level annotation @scope("prototype")
+
+		System.out.println(dbService.getData());
 	}
 }
